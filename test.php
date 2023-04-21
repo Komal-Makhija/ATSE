@@ -28,7 +28,7 @@
     <div id="description" class="container">
       <!--border--><div style="height: 40px;"></div>
       <div class="container_title">
-        <h1>Appliance Site</h1>
+        <h1>Electronics Store</h1>
       </div>
       <!--start--><div class="container-start"></div>
       <div class="container_content">
@@ -65,7 +65,7 @@
     <div class="goup">
       <button type="button" class="dropbtn"><a href="#top"><img src="images/goup.png" alt="TOP" height="40" width="40"/><br/>TOP</a></button>
       <div class="goup-menu">
-        <a href="#description">List</a>
+        <a href="#description">Menu</a>
       </div>
     </div> 
 
