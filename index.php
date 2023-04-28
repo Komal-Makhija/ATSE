@@ -1,105 +1,189 @@
-
+<!DOCTYPE html>
 <?php
-session_start();
-include("conn.php");
-		//include 'adminpanelheader.php' ;
-	extract($_REQUEST);
-unset($_SESSION['login']);
-unset($_SESSION['email']);
-unset($_SESSION['password']);
+include("include/connect.php");
+?>
 
-	if(isset($_POST['username']) && isset($_POST['password']))
-	{
-		$username = $_POST['username'];
-		$password = $_POST['password'];
-		
-		$query="select id,fname,password,email from user where email='".$username."' and password='".$password."'";
-	 	$result=mysqli_query($con,$query);
-	 	if(mysqli_num_rows($result)===1){
+<html lang="en">
+<?php include("include/header.php"); ?>
 
-		 		$row=mysqli_fetch_assoc($result);
-		 	
-				if($username==$row['email'] && $password==$row['password'])
-					{
-	 					$_SESSION['user_id']=$row['id'];
-						$_SESSION['username']=$row['email'];
-						$_SESSION['password']=$row['password'];
-						$_SESSION['login']=1;
-						$_SESSION['loginmsg']==1;
-						header('Location:adminpanel.php');
-					}else
-					{
-						echo '<script>alert("Username or Password Incorrect...");</script>';
-					}
-			
-		}
-	}
-		
-	 ?><!DOCTYPE html>
-<html>
-<head>
-	<title>Secondhand Shop Admin Login</title>
-	<link rel="stylesheet" type="text/css" href="../css/mycss.css">
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
-	<script src="../jq.js"></script>
-</head>
 <body>
-	<!-- <?php include 'header.php'; ?> -->
 
-	<div class="container bg-white mt-3 p-3 shadow-lg p-3 mb-5 bg-white rounded">
-			<h2 class="mb-3 p-2 p1 text-black align-items-center text-center">Secondhand Shop Admin Login</h2><hr />
-		<div class=" d-flex justify-content-center">
-
-				<img class="d-flex align-items-center img img-fluid" style="margin-right: 50px;width:35%; height:70%;" src="../img/Admin-rafiki.png">
-				<div class="col-md-2.5 d-flex align-items-center  text-center">
-					<form method="post" class="form  text-center" name="adminform">
-						<input class="form-control mb-1 mt-3" type="text" name="username" placeholder="Enter username" required />
-						<div style="display: flex; align-items: center;">
-						<input class="form-control mr-top-10 mb-6" type="password" id="txtPassword" name="password" placeholder="Enter password" required />
-						
-						 <i style="margin-left: -30px;" id="eyeIcon" class="mr-top-1 fa fa-eye" style="cursor: pointer;" onclick="myFunction();"></i> 
-						 </div>
-						
-						<input type="submit" class="btn btn-warning mt-3 mb-3 btn-sm col-md-12" name="login" value="Login">
-						
-							<p class="mt-3"><a href="../index.php" class="btn btn-light btn-sm"> <i class="fa fa-home p-1"></i>Home</a></p> 
-					</form>
-				</div>
-
+	<div class="loader-container circle-pulse-multiple">
+		<div class="loader">
+			<div id="loading-center-absolute">
+				<div class="object" id="object_four"></div>
+				<div class="object" id="object_three"></div>
+				<div class="object" id="object_two"></div>
+				<div class="object" id="object_one"></div>
+			</div>
+			<h2 class="l-text">Secondhand Shop For Student</h2>
 		</div>
 	</div>
-		
-<center style="color: red;">
-	<?php echo @$_SESSION['msg']; ?>
-</center>
-	
-	
 
 	
+	<div class="offcanvas_menu_click">
+		<div class="off_menu_inner">
+		<span class="cross-btn cross"><i class="lnr lnr-cross"></i></span>
+		<div class="off_menu_relative">
+			<ul>
+				<li><a href="http://mtj.world/others/categories.php/Watches/MTY=">How it Works?</a></li>
+				<li><a href="<?php echo $web; ?>contact.php">Contact Us</a></li>
+				<li><a href="<?php echo $web; ?>#aboutus">About Us</a></li>
+			</ul>
+		</div>
+		</div>
+	</div>
+
+	<header class="main_menu_area full_pad">
+		<nav class="navbar navbar-default">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<!-- <a class="navbar-brand" href="<?php echo $web; ?>index.php"><img src="img/logo.png" alt="" width="155px"></a> -->
+			</div>
+
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav menu">
+					<li class="active"><a href="<?php echo $web; ?>index.php">Home</a></li>
+					<li  class="dropdown submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Our Products</a>
+						<ul class="dropdown-menu">
+							<li><a href="http://mtj.world/others/categories.php/Watches/MTY=">Mobile and Tablet</a></li>
+							<li><a href="<?php echo $web; ?>customized-jewelery.php">Computer & laptop</a></li>
+							<li><a href="<?php echo $web; ?>bezel-details.php">Electronic Appliances</a></li>
+							<li><a href="<?php echo $web; ?>bezel-details.php">Books & Novels</a></li>
+							<li><a href="<?php echo $web; ?>bezel-details.php">Stationery</a></li>
+							<li><a href="<?php echo $web; ?>bezel-details.php">Music, sports & gym</a></li>
+							<li><a href="<?php echo $web; ?>bezel-details.php">bags-Luggage</a></li>
+						</ul>
+					</li>
+					</li>
+					<li><a href="<?php echo $web; ?>contact.php">Contact</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="search_dropdown"><a href="#"><i class="fa fa-call"></i></a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+<section class="main_slider nav-space">
+	<div class="slider_bg_inner">
+		<div class="slider_bg owl-carousel">
+		<?php
+				/*$sql=mysqli_query($link,"select * from slider where type='1'");
+				while($row=mysqli_fetch_array($sql)){
+					$data .='<div class="item">
+								<img src="http://mtj.world/onhome-slider/'.$row['image'].'" alt="">
+							</div>'; 
+							
+					$detail.='<div class="item">
+								<h2>'.$row['content'].'</h2>
+							</div>';
+				} 
+				echo $data; */
+			?>
+		</div>
+	</div>
+	<div class="text_slider_area">
+		<div class="container">
+			<div class="text_slider_inner">
+				<!--div class="text_slider owl-carousel">
+					<?php //echo $detail; ?>
+				</div-->
+				<div class="home_screen_nav">
+					<i class="fa fa-angle-left testi_prev" aria-hidden="true"></i>
+					<i class="fa fa-angle-right testi_next" aria-hidden="true"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="offcanvus_menu">
+	
+	<div class="nav-button">
+	<div class="nav_inner">
+	<span></span>
+	<span></span>
+	</div>
+	</div>
+</div>
+</section>
+	
+	<!-- Container -->
+	<section class="about-area"  id="aboutus">
+
+		<div class="about-inner row m0">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 about-content">
+						<div class="about-title">
+							<h2>About Secondhand Shop</h2>
+						</div>
+						<div class="row">
+							<div class="col-md-6 about-text">
+								<p>A new era has begun in the field of Diamond Goods, a venture which is highly focused on not just making stuffs filled with diamonds but we also highly focus on its perfection. A decade of perspiration, a decade of inspiration, a decade of dedication, combined and we put on our passion into a venture called MTJ World.</p>
+								<p>We do not focus on bulk categories but instead we believe in perfection on what we provide to the world, more and more high end good are been added to our inventory every time we perfect a product. We work for ultra-luxury product and does not compromise on our quality no matter what it takes, “Unless you deliver the best you cannot be the best” is one of our key slogans we follow.
+</p>
+							</div>
+							<div class="col-md-6 about-text">
+								<p>We mainly work on customizing Luxury brand products such as Rolex, Audemars Piguet, patek philippe etc which has already set a benchmark in their own field, we also create custom jewellery as per customer’s requirement and mainly we target to cover the whole product with the finest and the most precious stone on earth i.e. Diamonds.</p>
+								<p>As previously mentioned quality is on the top of our priority list and we never ever compromise in delivering so, this cannot be fulfilled with just using any kind of Diamonds on our products. Even Diamonds are categorized according to their quality, that too matters to us! Using the best possible diamonds with required colour and clarity also plays a vital role in overall product output quality. There you go, this is MTJ World for you.</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="about-img">
+							<img src="http://localhost/mtj.world/img/about-sec/laptop-student.jpg" width="570px" height="688px" alt="About MTJ World">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<?php 
+			/*$csql=mysqli_query($link,"select * from slider where type='2' and status='1' order by rank");
+			while($getcdata = mysqli_fetch_array($csql)){
+				
+				// $getcatname = mysqli_query($link,"select * from categories where cid='".$getcdata['cid']."'");
+				// $getcatdata = mysqli_fetch_array($getcatname);
+				
+				if(mysqli_num_rows($csql)>0){
+					
+					$catdata.='<div class="item">
+							<img src="http://www.mtj.world/cat-slider/'.$getcdata['image'].'" alt="">
+						</div>';
+					$catdetail.='<div class="item" style=" text-align: justify;">
+									'.$getcdata['content'].'</br></br>
+									<div class="form-btn col-md-12">
+										<a href="'.$web1.'categories.php/Watches/MTY="><center><button type="submit" value="submit" class="btn submit_btn">Explore Now</button></center></a>
+									</div>
+								</div>';
+				}
+			} */
+			
+		?>
+		<div class="full-about-sec full_pad">
+			<div class="about-slider-left">
+				<div class="about-slider owl-carousel">
+					<!-- <?php echo $catdata;?> -->
+				</div>
+				<div class="slider_nav">
+				<i class="fa fa-angle-left testi_prev" aria-hidden="true"></i>
+				<i class="fa fa-angle-right testi_next" aria-hidden="true"></i>
+				</div>
+			</div>
+			<div class="about-slider-right">
+				<div class="text-slider about-text owl-carousel">
+					<!-- <?php echo $catdetail;?> -->
+					
+				</div>
+			</div>
+		</div>
+	</section>
+
+<?php include("include/footer.php"); ?>
+
 </body>
+
 </html>
-<?php //include '..\footer.php'; ?>
-
-<script type="text/javascript">
-
- function myFunction() {
-  var x = document.getElementById("txtPassword");
-  var icon = document.getElementById("eyeIcon");
-  if (x.type === "password") {
-    x.type = "text";
-    icon.classList.add("fa-eye-slash");
-  } else {
-    x.type = "password";
-     icon.classList.remove("fa-eye-slash");
-  }
-}
-</script>
